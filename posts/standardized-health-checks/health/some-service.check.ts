@@ -8,7 +8,7 @@ export class SomeServiceCheck extends HealthIndicator {
     let result: AxiosResponse<any>;
     try {
       const pingURL = `http://localhost:8080/ping`;
-      result = await axios({method: 'GET' , timeout: 2000, url: pingURL});
+      result = await axios(pingURL);
 
       this.status = result.status === 200 ? 'HEALTHY' : 'UNHEALTHY';
     } catch (e) {

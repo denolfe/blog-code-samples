@@ -17,10 +17,13 @@ export class HealthService {
       )
     );
 
+    // Return unhealthy if any dependency is unhealthy
     if (this.checks.some((item) => {
       return item.status === 'UNHEALTHY';
     })) {
       this.overallHealth = 'UNHEALTHY';
+    } else {
+      this.overallHealth = 'HEALTHY'
     }
 
     return {
