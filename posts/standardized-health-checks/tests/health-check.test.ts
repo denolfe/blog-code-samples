@@ -1,14 +1,9 @@
 import axios from 'axios';
 import { HealthService } from '../services/health-service';
 import { MockIndicator } from './mocks/mock-indicator';
+import { MockToggleIndicator } from './mocks/mock-toggle-indicator';
 
 describe('Health Checks', () => {
-  it('should return healthy if all downstream dependencies are healthy', async () => {
-    const result = await axios.get('http://localhost:8080/health');
-    expect(result.status).toBe(200);
-    expect(result.data.dependencies[0].status).toEqual('HEALTHY');
-  });
-
   describe('Health Service', () => {
     it('should evaluate health - healthy', async () => {
       const service = new HealthService([
@@ -43,6 +38,18 @@ describe('Health Checks', () => {
       expect(result.status).toEqual('UNHEALTHY');
       expect(result.results.filter((result) => result.status === 'HEALTHY').length).toBe(1);
       expect(result.results.filter((result) => result.status === 'UNHEALTHY').length).toBe(1);
+    });
+
+    it('should be able to return to healthy after being unhealthy', async () => {
+      const service = new HealthService([
+        new MockToggleIndicator(),
+      ]);
+
+      let result = await service.getHealth();
+      expect(result.status).toEqual('UNHEALTHY');
+
+      result = await service.getHealth();
+      expect(result.status).toEqual('HEALTHY');
     });
   });
 });

@@ -17,11 +17,12 @@ export class HealthService {
       )
     );
 
-    if (this.checks.some((item) => {
+    const anyUnhealthy = this.checks.some((item) => {
       return item.status === 'UNHEALTHY';
-    })) {
-      this.overallHealth = 'UNHEALTHY';
-    }
+    });
+    this.overallHealth = anyUnhealthy
+      ? 'UNHEALTHY'
+      : 'HEALTHY';
 
     return {
       status: this.overallHealth,
