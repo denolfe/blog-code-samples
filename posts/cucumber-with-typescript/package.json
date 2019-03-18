@@ -1,0 +1,22 @@
+{
+  "name": "cucumber-with-typescript",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/cucumber-js -p default"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/cucumber": "^4.0.5",
+    "chai": "^4.2.0",
+    "cucumber": "^5.1.0",
+    "cucumber-pretty": "^1.5.0",
+    "cucumber-tsflow": "^3.2.0",
+    "ts-node": "^8.0.3",
+    "typescript": "^3.3.3333"
+  }
+}
