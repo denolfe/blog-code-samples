@@ -1,0 +1,26 @@
+image : microsoft/dotnet:latest
+
+stages:
+  - build
+  - test
+  - release
+
+build:
+  stage: build
+  script:
+    - dotnet build
+
+test:
+  stage: test
+  script:
+    - dotnet test
+
+release:
+  stage: release
+  only:
+    - master
+  artifacts:
+    paths:
+      - publish/
+  script:
+    - dotnet publish -c Release -o ../publish MyApp/MyApp.csproj
