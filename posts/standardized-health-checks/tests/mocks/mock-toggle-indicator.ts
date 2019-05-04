@@ -6,13 +6,13 @@ export class MockToggleIndicator extends HealthIndicator {
 
   constructor(health?: ResourceHealth) {
     super();
-    this.status = health || ResourceHealth.HEALTHY;
+    this.status = health || ResourceHealth.Healthy;
   }
 
   checkHealth(): Promise<void> {
-    this.status = this.status === ResourceHealth.HEALTHY
-      ? ResourceHealth.UNHEALTHY
-      : ResourceHealth.HEALTHY;
+    this.status = this.status === ResourceHealth.Healthy
+      ? ResourceHealth.Unhealthy
+      : ResourceHealth.Healthy;
 
     return new Promise((resolve) => {
       resolve();

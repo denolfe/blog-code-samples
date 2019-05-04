@@ -12,13 +12,13 @@ export class SomeServiceCheck extends HealthIndicator {
       result = await axios(pingURL);
 
       if (result.status === 200) {
-        this.status = ResourceHealth.HEALTHY;
+        this.status = ResourceHealth.Healthy;
       } else {
-        this.status = ResourceHealth.UNHEALTHY;
+        this.status = ResourceHealth.Unhealthy;
         this.details = `Received status: ${result.status}`;
       }
     } catch (e) {
-      this.status = ResourceHealth.UNHEALTHY;
+      this.status = ResourceHealth.Unhealthy;
       this.details = e.message;
       console.log(`HEALTH: ${this.name} is unhealthy.`, e.message);
     }

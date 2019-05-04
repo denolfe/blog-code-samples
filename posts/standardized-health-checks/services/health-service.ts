@@ -3,7 +3,7 @@ import { ResourceHealth } from '../enums/resource-health.enum';
 
 export class HealthService {
   private readonly checks: HealthIndicator[];
-  public overallHealth: ResourceHealth = ResourceHealth.HEALTHY;
+  public overallHealth: ResourceHealth = ResourceHealth.Healthy;
 
   constructor(checks: HealthIndicator[]) {
     this.checks = checks;
@@ -15,12 +15,12 @@ export class HealthService {
     );
 
     const anyUnhealthy = this.checks.some(item =>
-      item.status === ResourceHealth.UNHEALTHY
+      item.status === ResourceHealth.Unhealthy
     );
 
     this.overallHealth = anyUnhealthy
-      ? ResourceHealth.UNHEALTHY
-      : ResourceHealth.HEALTHY;
+      ? ResourceHealth.Unhealthy
+      : ResourceHealth.Healthy;
 
     return {
       status: this.overallHealth,

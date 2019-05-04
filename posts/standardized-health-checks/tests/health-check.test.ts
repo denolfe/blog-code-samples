@@ -12,33 +12,33 @@ describe('Health Checks', () => {
 
       const result = await service.getHealth();
 
-      expect(result.status).toEqual(ResourceHealth.HEALTHY);
-      expect(result.results[0].status).toEqual(ResourceHealth.HEALTHY);
+      expect(result.status).toEqual(ResourceHealth.Healthy);
+      expect(result.results[0].status).toEqual(ResourceHealth.Healthy);
       expect(result.results[0].details).not.toBeDefined()
     });
 
     it('should evaluate health - unhealthy', async () => {
       const service = new HealthService([
-        new MockIndicator(ResourceHealth.UNHEALTHY)
+        new MockIndicator(ResourceHealth.Unhealthy)
       ]);
 
       const result = await service.getHealth();
 
-      expect(result.status).toEqual(ResourceHealth.UNHEALTHY);
-      expect(result.results[0].status).toEqual(ResourceHealth.UNHEALTHY);
+      expect(result.status).toEqual(ResourceHealth.Unhealthy);
+      expect(result.results[0].status).toEqual(ResourceHealth.Unhealthy);
     });
 
     it('should evaluate unhealthy if mixed health dependencies', async () => {
       const service = new HealthService([
         new MockIndicator(),
-        new MockIndicator(ResourceHealth.UNHEALTHY)
+        new MockIndicator(ResourceHealth.Unhealthy)
       ]);
 
       const result = await service.getHealth();
 
-      expect(result.status).toEqual(ResourceHealth.UNHEALTHY);
-      expect(result.results.filter((result) => result.status === ResourceHealth.HEALTHY).length).toBe(1);
-      expect(result.results.filter((result) => result.status === ResourceHealth.UNHEALTHY).length).toBe(1);
+      expect(result.status).toEqual(ResourceHealth.Unhealthy);
+      expect(result.results.filter((result) => result.status === ResourceHealth.Healthy).length).toBe(1);
+      expect(result.results.filter((result) => result.status === ResourceHealth.Unhealthy).length).toBe(1);
     });
 
     it('should be able to return to healthy after being unhealthy', async () => {
@@ -47,20 +47,20 @@ describe('Health Checks', () => {
       ]);
 
       let result = await service.getHealth();
-      expect(result.status).toEqual(ResourceHealth.UNHEALTHY);
+      expect(result.status).toEqual(ResourceHealth.Unhealthy);
 
       result = await service.getHealth();
-      expect(result.status).toEqual(ResourceHealth.HEALTHY);
+      expect(result.status).toEqual(ResourceHealth.Healthy);
     });
 
     it('should return details when unhealthy', async () => {
       const unhealthyDetails = 'Unable to communicate to DB';
       const service = new HealthService([
-        new MockIndicator(ResourceHealth.UNHEALTHY, unhealthyDetails),
+        new MockIndicator(ResourceHealth.Unhealthy, unhealthyDetails),
       ]);
 
       let result = await service.getHealth();
-      expect(result.status).toEqual(ResourceHealth.UNHEALTHY);
+      expect(result.status).toEqual(ResourceHealth.Unhealthy);
       expect(result.results[0].details).toEqual(unhealthyDetails);
     });
   });

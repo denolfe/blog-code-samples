@@ -1,4 +1,4 @@
 export enum ResourceHealth {
-  'HEALTHY',
-  'UNHEALTHY'
+  Healthy = 'HEALTHY',
+  Unhealthy = 'UNHEALTHY'
 }

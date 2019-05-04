@@ -6,7 +6,7 @@ export class MockIndicator extends HealthIndicator {
 
   constructor(health?: ResourceHealth, details?: string) {
     super();
-    this.status = health || ResourceHealth.HEALTHY;
+    this.status = health || ResourceHealth.Healthy;
     if (details) {
       this.details = details;
     }

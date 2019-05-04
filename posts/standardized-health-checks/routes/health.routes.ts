@@ -15,7 +15,7 @@ healthRoutes.get('/health', async (req, res) => {
 
   const healthResults = await healthService.getHealth();
 
-  res.status(healthResults.status === ResourceHealth.HEALTHY ? 200 : 503)
+  res.status(healthResults.status === ResourceHealth.Healthy ? 200 : 503)
     .send({
       status: healthResults.status, dependencies: healthResults.results
     });
