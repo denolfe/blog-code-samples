@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { HealthService } from '../services/health-service';
 import { MockIndicator } from './mocks/mock-indicator';
 import { MockToggleIndicator } from './mocks/mock-toggle-indicator';
@@ -14,6 +13,7 @@ describe('Health Checks', () => {
 
       expect(result.status).toEqual('HEALTHY');
       expect(result.results[0].status).toEqual('HEALTHY');
+      expect(result.results[0].details).not.toBeDefined()
     });
 
     it('should evaluate health - unhealthy', async () => {
@@ -50,6 +50,17 @@ describe('Health Checks', () => {
 
       result = await service.getHealth();
       expect(result.status).toEqual('HEALTHY');
+    });
+
+    it('should return details when unhealthy', async () => {
+      const unhealthyDetails = 'Unable to communicate to DB';
+      const service = new HealthService([
+        new MockIndicator('UNHEALTHY', unhealthyDetails),
+      ]);
+
+      let result = await service.getHealth();
+      expect(result.status).toEqual('UNHEALTHY');
+      expect(result.results[0].details).toEqual(unhealthyDetails);
     });
   });
 });

@@ -10,10 +10,16 @@ export class SomeServiceCheck extends HealthIndicator {
       const pingURL = `http://localhost:8080/ping`;
       result = await axios(pingURL);
 
-      this.status = result.status === 200 ? 'HEALTHY' : 'UNHEALTHY';
+      if (result.status === 200) {
+        this.status = 'HEALTHY';
+      } else {
+        this.status = 'UNHEALTHY';
+        this.details = `Received status: ${result.status}`;
+      }
     } catch (e) {
       this.status = 'UNHEALTHY';
-      console.log(`HEALTH: ${this.name} is unhealthy.`, e);
+      this.details = e.message;
+      console.log(`HEALTH: ${this.name} is unhealthy.`, e.message);
     }
   }
 }
