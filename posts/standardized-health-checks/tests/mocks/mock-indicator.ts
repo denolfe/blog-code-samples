@@ -1,12 +1,12 @@
 import { HealthIndicator } from '../../health/health-indicator';
-import { ResourceHealth } from '../../types/resource-health.type';
+import { ResourceHealth } from '../../enums/resource-health.enum';
 
 export class MockIndicator extends HealthIndicator {
   name = 'Mock Indicator';
 
   constructor(health?: ResourceHealth, details?: string) {
     super();
-    this.status = health || 'HEALTHY';
+    this.status = health || ResourceHealth.HEALTHY;
     if (details) {
       this.details = details;
     }

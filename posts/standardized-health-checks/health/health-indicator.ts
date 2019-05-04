@@ -1,8 +1,8 @@
-import { ResourceHealth } from '../types/resource-health.type';
+import { ResourceHealth } from '../enums/resource-health.enum';
 
 export abstract class HealthIndicator {
   abstract name: string;
-  status: ResourceHealth = 'UNHEALTHY';
+  status: ResourceHealth = ResourceHealth.UNHEALTHY;
   details: string | undefined;
 
   abstract checkHealth(): Promise<void>;

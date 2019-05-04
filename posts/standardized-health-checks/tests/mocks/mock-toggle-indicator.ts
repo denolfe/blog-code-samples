@@ -1,18 +1,18 @@
 import { HealthIndicator } from '../../health/health-indicator';
-import { ResourceHealth } from '../../types/resource-health.type';
+import { ResourceHealth } from '../../enums/resource-health.enum';
 
 export class MockToggleIndicator extends HealthIndicator {
   name = 'Mock Toggle Indicator';
 
   constructor(health?: ResourceHealth) {
     super();
-    this.status = health || 'HEALTHY';
+    this.status = health || ResourceHealth.HEALTHY;
   }
 
   checkHealth(): Promise<void> {
-    this.status = this.status === 'HEALTHY'
-      ? 'UNHEALTHY'
-      : 'HEALTHY';
+    this.status = this.status === ResourceHealth.HEALTHY
+      ? ResourceHealth.UNHEALTHY
+      : ResourceHealth.HEALTHY;
 
     return new Promise((resolve) => {
       resolve();

@@ -1,9 +1,9 @@
 import { HealthIndicator } from '../health/health-indicator';
-import { ResourceHealth } from '../types/resource-health.type';
+import { ResourceHealth } from '../enums/resource-health.enum';
 
 export class HealthService {
   private readonly checks: HealthIndicator[];
-  public overallHealth: ResourceHealth = 'HEALTHY';
+  public overallHealth: ResourceHealth = ResourceHealth.HEALTHY;
 
   constructor(checks: HealthIndicator[]) {
     this.checks = checks;
@@ -11,18 +11,16 @@ export class HealthService {
 
   async getHealth(): Promise<HealthCheckResult> {
     await Promise.all(
-      this.checks.map((check) => {
-          return check.checkHealth();
-        }
-      )
+      this.checks.map(check => check.checkHealth())
     );
 
-    const anyUnhealthy = this.checks.some((item) => {
-      return item.status === 'UNHEALTHY';
-    });
+    const anyUnhealthy = this.checks.some(item =>
+      item.status === ResourceHealth.UNHEALTHY
+    );
+
     this.overallHealth = anyUnhealthy
-      ? 'UNHEALTHY'
-      : 'HEALTHY';
+      ? ResourceHealth.UNHEALTHY
+      : ResourceHealth.HEALTHY;
 
     return {
       status: this.overallHealth,

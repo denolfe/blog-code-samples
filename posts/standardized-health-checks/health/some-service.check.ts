@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { HealthIndicator } from './health-indicator';
+import { ResourceHealth } from '../enums/resource-health.enum';
 
 export class SomeServiceCheck extends HealthIndicator {
   name: string = 'Some Service';
@@ -11,13 +12,13 @@ export class SomeServiceCheck extends HealthIndicator {
       result = await axios(pingURL);
 
       if (result.status === 200) {
-        this.status = 'HEALTHY';
+        this.status = ResourceHealth.HEALTHY;
       } else {
-        this.status = 'UNHEALTHY';
+        this.status = ResourceHealth.UNHEALTHY;
         this.details = `Received status: ${result.status}`;
       }
     } catch (e) {
-      this.status = 'UNHEALTHY';
+      this.status = ResourceHealth.UNHEALTHY;
       this.details = e.message;
       console.log(`HEALTH: ${this.name} is unhealthy.`, e.message);
     }

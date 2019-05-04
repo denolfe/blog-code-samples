@@ -1,6 +1,7 @@
 import { SomeServiceCheck } from '../health/some-service.check';
 import { HealthService } from '../services/health-service';
 import { Router } from 'express';
+import { ResourceHealth } from '../enums/resource-health.enum';
 
 const healthRoutes = Router();
 
@@ -14,7 +15,7 @@ healthRoutes.get('/health', async (req, res) => {
 
   const healthResults = await healthService.getHealth();
 
-  res.status(healthResults.status === 'HEALTHY' ? 200 : 503)
+  res.status(healthResults.status === ResourceHealth.HEALTHY ? 200 : 503)
     .send({
       status: healthResults.status, dependencies: healthResults.results
     });
