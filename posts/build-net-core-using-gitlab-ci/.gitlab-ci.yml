@@ -1,4 +1,4 @@
-image : microsoft/dotnet:latest
+image : mcr.microsoft.com/dotnet/sdk:5.0
 
 stages:
   - build
@@ -23,4 +23,4 @@ release:
     paths:
       - publish/
   script:
-    - dotnet publish -c Release -o ../publish MyApp/MyApp.csproj
+    - dotnet publish -c Release -o ./publish MyApp/MyApp.csproj
