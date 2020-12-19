@@ -1,0 +1,15 @@
+name: .NET 5 CI
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: .NET 5 Application
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '5.0.101' # Check https://dotnet.microsoft.com/download/dotnet/5.0 for latest SDK version
+      - run: dotnet build
+      - run: dotnet test
